@@ -1,5 +1,6 @@
 import Player from '@vimeo/player';
 import { values } from '@vimeo/player';
+import { throttle } from 'throttle-debounce';
 
 const iframeRef = document.querySelector('#vimeo-player');
 
@@ -8,13 +9,10 @@ const iframeId = iframeRef.id
 const player = new Player(iframeRef);
 
 const onPlay = function({seconds}) {
-    localStorage.setItem("videoPlayer-current-time", seconds);
-    console.log(JSON.parse(localStorage.getItem("videoPlayer-current-time")));
+   localStorage.setItem("videoPlayer-current-time", seconds);
 };
 
-
-
-player.on('timeupdate', onPlay);
+player.on('timeupdate', throttle(1000,onPlay));
 
 const getApplicationVAlue = JSON.parse(localStorage.getItem("videoPlayer-current-time")) ??0; 
 console.log(getApplicationVAlue);
