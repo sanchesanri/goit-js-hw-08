@@ -50,7 +50,8 @@ checkLocalStorage();
 function onSubmitButtonClick(evt) {
   evt.preventDefault();
 
+  dataObj = new Object();
   console.log(dataObj);
-  localStorage.clear();
+  localStorage.removeItem('feedback-form-state');
   formRef.reset();
 }
